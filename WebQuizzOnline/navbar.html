@@ -1,0 +1,55 @@
+<!-- Nav -->
+<nav class="row mb-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100">
+        <a class="navbar-brand" href="index.html"><i class="fa-solid fa-graduation-cap"></i> FPT Polytechnic</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav nav-pills mb-3 me-auto mb-2 mb-lg-0" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" href="#!trangchu">Trang chủ</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" href="#!gioithieu">Giới thiệu</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" href="#!lienhe">Liên Hệ</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" href="#!gopy">Góp ý</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link text-white" href="#!hoidap">Hỏi đáp</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" ng-controller="tttk">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
+                        role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Tài khoản
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+                        <label class="dropdown-item-text " ng-show="htdangnhap">{{hoten}}</label>
+                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal3" ng-hide="tagdk">Đăng
+                            ký</a>
+                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal1" ng-hide="tagdn">
+                            Đăng nhập
+                        </a>
+                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal2" ng-hide="tagqmk">Quên mật
+                            khẩu</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" ng-controller="frmdn" ng-click="dx()">Đăng xuất</a>
+                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal4">Đổi mật
+                            khẩu</a>
+                        <a class="dropdown-item" href="#!taikhoan">Cập nhật tài khoản</a>
+                        <!-- <div class="dropdown-divider"></div> -->
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</nav>
+<!-- Nav -->

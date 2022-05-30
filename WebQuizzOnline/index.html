@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>PS15403-HuynhTanPhat</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Bootstrap CSS v5.0.2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+    <link rel="stylesheet" href="css/dinhdang.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.8.0/angular-route.min.js"></script>
+</head>
+
+<body ng-app="ASM">
+    <div class="container">
+        <!-- header -->
+        <header class="row">
+            <img class="ml-auto p-0" src="images/banner.png" />
+        </header>
+        <!-- header -->
+        <div ng-include="'navbar.html'"></div>
+
+        <!-- Modal -->
+
+        <div ng-include="'modal.html'">
+
+        </div>
+        <!-- Modal -->
+        <!-- body -->
+
+        <div class="row" ng-controller="listmh">
+            <div class="col-sm-9" ng-view></div>
+            <aside class="col-sm-3 mb-3 pe-0" ng-include="'cacmonhoc.html'"></aside>
+        </div>
+        <!-- body -->
+        <!-- footer -->
+        <footer class="row bg-dark text-center text-white p-0">
+            <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-facebook-f"></i></a>
+
+                    <!-- Twitter -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-twitter"></i></a>
+
+                    <!-- Google -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-google"></i></a>
+
+                    <!-- Instagram -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-instagram"></i></a>
+
+                    <!-- Linkedin -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-linkedin-in"></i></a>
+
+                    <!-- Github -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-github"></i></a>
+                </section>
+                <!-- Section: Social media -->
+            </div>
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+                Huỳnh Tấn Phát - PS15403<br />
+                Email: phathtps15403@fpt.edu.vn
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- footer -->
+    </div>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <!-- <script src="db/Students.js"></script> -->
+    <script>
+        var app = angular.module("ASM", ["ngRoute"]);
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when("/gioithieu", { templateUrl: "gioithieu.html" })
+                .when("/lienhe", { templateUrl: "lienhe.html" })
+                .when("/gopy", { templateUrl: "gopy.html" })
+                .when("/hoidap", { templateUrl: "hoidap.html" })
+                .when("/taikhoan", { templateUrl: "capnhattk.html" })
+                .when("/training/:idmh", { templateUrl: "lambai.html", controller: "ktdn", })
+                .otherwise({ templateUrl: "trangchu.html" });
+        });
+        app.controller("listmh", function ($scope, $http, $routeParams) {
+            $scope.cacmonhoc = [];
+            $http.get("db/Subjects.js").then(function (d) {
+                $scope.cacmonhoc = d.data;
+            });
+            $scope.start = 0;
+            $scope.next = function () {
+                if ($scope.start < $scope.cacmonhoc.length - 4) {
+                    $scope.start += 4;
+                } else {
+                    $scope.start = 0;
+                }
+            }
+            $scope.prev = function () {
+                if ($scope.start <= 0) {
+                    $scope.start = $scope.cacmonhoc.length - 4;
+                } else {
+                    $scope.start -= 4;
+                }
+            }
+            $scope.selectpage = function (chiso) {
+                switch (chiso) {
+                    case 1:
+                        $scope.start = 0;
+                        break;
+                    case 2:
+                        $scope.start = 4;
+                        break;
+                    case 3:
+                        $scope.start = 8;
+                        break;
+                    case 4:
+                        $scope.start = 12;
+                        break;
+                    case 5:
+                        $scope.start = 16;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            $scope.ktdn = function () {
+                if (sessionStorage.getItem("username") == "" || sessionStorage.getItem("username") == null) {
+                    alert("vui long dang nhap");
+                    document.location = "index.html";
+                } else {
+                    var idmh = $routeParams.idmh;
+                    $scope.listch = [];
+                    $scope.indexch = 1;
+                    $scope.start = 0;
+                    $scope.tongdiem = 0;
+
+                    $http.get("db/Quizs/" + idmh + ".js").then(function (d) {
+                        $scope.listch = d.data;
+                    })
+                    $http.get("db/Subjects.js").then(function (d) {
+                        var dsmh = d.data;
+                        for (let i = 0; i < dsmh.length; i++) {
+                            if (dsmh[i].Id == idmh) {
+                                $scope.tenmthi = dsmh[i].Name;
+                            }
+                        }
+                    });
+                    $scope.next = function () {
+                        if ($scope.start < $scope.listch.length - 1) {
+                            $scope.start += 1;
+                            $scope.indexch += 1;
+                            console.log($scope.cautl);
+                        }
+                    }
+                    $scope.prev = function () {
+                        if ($scope.start > 0) {
+                            $scope.start -= 1;
+                            $scope.indexch -= 1;
+                        }
+                    }
+                    // $scope.chonda = function (idda) {
+                    //     for (let i = 0; i < array.length; i++) {
+                    //         if (listch.AnswerId == idda) {
+                    //             $scope.tongdiem += listch.Marks;
+                    //         }
+
+                    //     }
+                    // }
+                        
+                }
+            }
+        });
+        app.controller("hiench", function ($scope, $http, $routeParams) {
+            console.log($scope.cautl);
+        })
+        app.controller("frmdn",
+            function ($scope, $http) {
+                $scope.dn = function () {
+                    var u = $scope.username;
+                    var p = $scope.password;
+                    var tc = false;
+                    var motsv;
+                    var listsv = [];
+                    $http.get("db/Students.js").then(function (d) {
+                        listsv = d.data;
+                        for (let i = 0; i < listsv.length; i++) {
+                            motsv = listsv[i];
+                            if (u == motsv.username && p == motsv.password) {
+                                tc = true;
+                                break;
+                            }
+                        }
+                        if (tc) {
+                            alert("Thành công");
+                            sessionStorage.setItem("username", motsv.username);
+                            sessionStorage.setItem("hoten", motsv.fullname);
+                            sessionStorage.setItem("email", motsv.email);
+                            document.location = "index.html";
+                        } else
+                            alert("Thất bại");
+                    });
+                };
+                $scope.dx = function () {
+                    sessionStorage.setItem("username", "");
+                    sessionStorage.setItem("hoten", "");
+                    document.location = "index.html";
+                };
+            });
+        app.controller("tttk",
+            function ($scope) {
+                var ht = sessionStorage.getItem("hoten");
+                var email = sessionStorage.getItem("email");
+                if (ht != null && ht != "") {
+                    $scope.hoten = ht;
+                    $scope.email = email;
+                    $scope.tagdn = true;
+                    $scope.tagdk = true;
+                    $scope.tagqmk = true;
+                    $scope.htdangnhap = true;
+                } else {
+                    $scope.tagdn = false;
+                    $scope.tagdk = false;
+                    $scope.tagqmk = false;
+                    $scope.htdangnhap = false;
+                }
+            });
+    </script>
+</body>
+<!-- script -->
+
+<!-- script -->
+
+</html>

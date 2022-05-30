@@ -1,0 +1,12 @@
+
+<div class="card ml-n2 mr-n2">
+    <div class="card-header bg-dark text-white text-center">
+        <i class="fa-solid fa-list"></i> DANH MỤC MÔN HỌC
+    </div>
+    <div class="card-body p-0">
+        <ul class="list-group">
+            <a class="list-group-item" ng-repeat="mh in cacmonhoc|orderBy:'Name'" href="#!training/{{mh.Id}}">{{mh.Name|uppercase}}
+            </a>
+        </ul>
+    </div>
+</div>
